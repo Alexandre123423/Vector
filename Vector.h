@@ -23,6 +23,7 @@ public:
 	void fusion(const Vector<Ttype>& vectorToFusion);	//vectorToFusion is a reference in order to preserve free memory ;-)
 	void add(Ttype thingToAdd);
 	void autoInitializing();
+	void remove();
 
 	Ttype getItem(int index);
 
