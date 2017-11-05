@@ -23,12 +23,12 @@ public:
 	void fusion(const Vector<Ttype>& vectorToFusion);	//vectorToFusion is a reference in order to preserve free memory ;-)
 	void add(Ttype thingToAdd);
 	void autoInitializing();
-	void remove();
 
 	Ttype getItem(int index);
 
 	int initializing(int index, Ttype content);	//return 0 = No problem ; return 1 = Out of bounds (index > length)
 	int getLength();
+	int remove(int index);	//return 0 = No problem ; return 1 = Out of bounds (index > length)
 
 	Vector<Ttype> operator+=(const Vector<Ttype>& vectorToFusion);
 	Vector<Ttype> operator=(const Vector<Ttype>& vectorToCopy);
@@ -206,6 +206,38 @@ template <typename Ttype> int Vector<Ttype>::initializing(int index, Ttype conte
 template <typename Ttype> int Vector<Ttype>::getLength()
 {
 	return length;
+}
+
+template <typename Ttype> int Vector<Ttype>::remove(int index)
+{
+	if (index <= length)
+	{
+		int length_tempA = length - index - 1;
+		int length_tempB = length - index + 1;
+
+		Vector<Ttype> tempA(length_tempA);
+		Vector<Ttype> tempB(length_tempB);
+
+		for (int i = 0; i < length_tempA; i++)
+		{
+			tempA.vector[i] = vector[i];
+		}
+
+		for (int i = 0; i < (length_tempB - index); i++)	//TODO : Find a solution to solve correctly reduce the vector
+		{
+			tempB.vector[i] = vector[i];
+		}
+
+		tempA.fusion(tempB);
+
+		*this = tempA;
+
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
 }
 
 #pragma endregion
