@@ -212,6 +212,8 @@ template <typename Ttype> int Vector<Ttype>::remove(int index)
 {
 	if (index <= length)
 	{
+		TEST PULL REQUEST
+
 		int length_tempA = length - index - 1;
 		int length_tempB = length - index + 1;
 
